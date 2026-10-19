@@ -1,0 +1,8 @@
+# command: close or open. No joint, force, or hardware parameters are assumed.
+string target_id
+string command
+string class_label
+---
+bool success
+bool simulated
+string message

@@ -1,0 +1,8 @@
+# phase: pick or place. This first version only supports mock execution.
+string target_id
+string phase
+geometry_msgs/PoseStamped target_pose
+---
+bool success
+bool simulated
+string message

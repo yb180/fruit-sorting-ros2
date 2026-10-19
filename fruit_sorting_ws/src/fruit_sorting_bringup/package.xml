@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>fruit_sorting_bringup</name>
+  <version>0.1.0</version>
+  <description>Launch configuration and end-to-end tests for the mock sorting pipeline.</description>
+  <maintainer email="maintainers@example.com">Fruit Sorting Maintainers</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>fruit_sorting_perception</exec_depend>
+  <exec_depend>fruit_sorting_planning</exec_depend>
+  <test_depend>launch_testing_ament_cmake</test_depend>
+  <test_depend>launch_testing_ros</test_depend>
+  <test_depend>rclpy</test_depend>
+  <test_depend>fruit_sorting_interfaces</test_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

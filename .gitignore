@@ -1,17 +1,18 @@
-# ROS 2 / colcon
+fruit_sorting_ws/build/
+fruit_sorting_ws/install/
+fruit_sorting_ws/log/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+*.egg-info/
+.venv/
+
+# Preserve repository-wide build, IDE and OS exclusions.
 build/
 install/
 log/
 .colcon/
-
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.pytest_cache/
-.venv/
-
-# IDE / OS
 .vscode/
 .idea/
 .DS_Store

@@ -1,0 +1,9 @@
+/**:
+  ros__parameters:
+    minimum_confidence: 0.8
+    frame_id: mock_table
+    bin_labels: [apple, banana, pear, tomato]
+    # Four synthetic bin positions; actual bins must be surveyed on site.
+    bin_positions: [0.4, -0.3, 0.05, 0.4, -0.1, 0.05, 0.4, 0.1, 0.05, 0.4, 0.3, 0.05]
+    service_timeout: 5.0
+    max_targets: 100

@@ -18,5 +18,6 @@ setup(
     tests_require=['pytest'],
     entry_points={'console_scripts': [
         'mock_perception = fruit_sorting_perception.mock_node:main',
+        'conveyor_simulator = fruit_sorting_perception.conveyor_sim:main',
     ]},
 )

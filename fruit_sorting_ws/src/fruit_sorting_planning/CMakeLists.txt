@@ -15,12 +15,15 @@ foreach(target mock_arm mock_hand)
   ament_target_dependencies(${target} rclcpp fruit_sorting_interfaces)
 endforeach()
 install(TARGETS mock_arm mock_hand DESTINATION lib/${PROJECT_NAME})
-install(PROGRAMS scripts/sorting_planner DESTINATION lib/${PROJECT_NAME})
+install(PROGRAMS scripts/sorting_planner scripts/conveyor_coordinator
+  DESTINATION lib/${PROJECT_NAME})
 if(BUILD_TESTING)
   find_package(ament_cmake_pytest REQUIRED)
   ament_add_pytest_test(planning_policy test/test_policy.py
     APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR})
   ament_add_pytest_test(legacy_can_codec test/test_legacy_can_codec.py
+    APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR})
+  ament_add_pytest_test(conveyor_policy test/test_conveyor_policy.py
     APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 ament_package()

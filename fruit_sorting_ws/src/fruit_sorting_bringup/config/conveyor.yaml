@@ -1,0 +1,11 @@
+/**:
+  ros__parameters:
+    # Synthetic mock_table coordinates in metres, not calibrated hardware limits.
+    pick_x_min: 0.1
+    pick_x_max: 0.3
+    sample_max_age: 0.5
+    service_timeout: 5.0
+    sorting_timeout: 30.0
+    minimum_confidence: 0.8
+    max_targets: 100
+    labels: [apple, banana, pear, tomato]

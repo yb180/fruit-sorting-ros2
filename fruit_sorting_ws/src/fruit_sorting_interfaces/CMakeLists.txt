@@ -9,8 +9,11 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/DetectionArray.msg"
   "msg/SortingTarget.msg"
   "msg/SortingResult.msg"
+  "msg/ConveyorState.msg"
   "srv/MoveArm.srv"
   "srv/CommandHand.srv"
+  "srv/SetConveyor.srv"
+  "srv/SubmitDetection.srv"
   DEPENDENCIES std_msgs geometry_msgs)
 ament_export_dependencies(rosidl_default_runtime)
 ament_package()

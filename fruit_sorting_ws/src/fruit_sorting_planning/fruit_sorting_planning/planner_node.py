@@ -8,7 +8,7 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 
 from fruit_sorting_interfaces.msg import DetectionArray, SortingResult, SortingTarget
-from fruit_sorting_interfaces.srv import CommandHand, MoveArm
+from fruit_sorting_interfaces.srv import CommandHand, MoveArm, SubmitDetection
 from fruit_sorting_planning.policy import (
     Candidate, STEPS, make_bins, response_error, select_bin,
 )
@@ -51,12 +51,28 @@ class SortingPlanner(Node):
         self.hand = self.create_client(CommandHand, 'hand/command')
         self.queue = deque()
         self.seen = set()
+        self.admission = self.create_service(
+            SubmitDetection, 'sorting/submit_detection', self.submit_detection)
         self.active = None
         self.future = None
         self.step = 0
         self.deadline = None
         self.timer = self.create_timer(0.05, self.tick)
         self.get_logger().info('Simulation-only sorting planner started')
+
+    def submit_detection(self, request, response):
+        detection_id = request.detection.detection_id
+        response.simulated = True
+        if detection_id in self.seen:
+            response.success = False
+            response.message = 'detection already admitted in this run'
+            return response
+        message = DetectionArray()
+        message.detections = [request.detection]
+        self.on_detections(message)
+        response.success = detection_id in self.seen
+        response.message = 'simulated target queued' if response.success else 'detection rejected'
+        return response
 
     def on_detections(self, message):
         for detection in message.detections:

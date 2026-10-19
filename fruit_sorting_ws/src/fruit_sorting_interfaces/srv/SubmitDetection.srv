@@ -1,0 +1,6 @@
+# Explicit admission acknowledgement for the simulation-only sorting queue.
+fruit_sorting_interfaces/ProduceDetection detection
+---
+bool success
+bool simulated
+string message

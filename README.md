@@ -4,6 +4,9 @@
 目前仅实现软件模拟：不需要相机、机器人模型或设备驱动，不会连接真实硬件。
 模拟对象为苹果、番茄和黄瓜；检测、分类及位姿都是确定性测试数据，不代表真实识别或物理抓取能力。
 
+**流水线主线**已增加独立演示：苹果、香蕉、梨子、西红柿模型随逻辑输送带移动，进入抓取区后停带、模拟分拣并恢复输送。
+最终交付步骤、当前进度和需要的现场配合见 [完成计划](docs/delivery-plan.md)。真实输送带目前只能人工调速/暂停，程序接口尚未确认；自动启停演示全部使用模拟接口。
+
 已确认现场硬件为 **AUBO K5 + 睿研智控 RY-H1 标准版（16 自由度）+ Intel RealSense L515**，用户已有基于 ROS 2 Humble 的静止抓取流程。
 设备规格和接入顺序见 [硬件清单](docs/hardware.md)。已检查上传的静止抓取程序，现行入口为 `demo3_autograsp.py` 任务 1；[检查报告](docs/legacy-grasp-review.md)记录了复用边界和待修问题。
 本仓库已加入可离线测试的 CAN 报文编码模块；现场 SDK、模型和原抓取脚本尚未接入运行流程。
@@ -13,15 +16,16 @@
 ```text
 fruit_sorting_ws/
 └── src/
-    ├── fruit_sorting_interfaces/   # ament_cmake：4 个消息、2 个服务
-    ├── fruit_sorting_perception/   # ament_python：模拟检测与类别标签
-    ├── fruit_sorting_planning/     # Python 状态机 + C++ 模拟机械臂/手服务
+    ├── fruit_sorting_interfaces/   # ament_cmake：5 个消息、4 个服务
+    ├── fruit_sorting_perception/   # 固定场景/移动输送带模拟检测
+    ├── fruit_sorting_planning/     # 分拣与输送协调状态机 + C++ 模拟机械臂/手
     └── fruit_sorting_bringup/      # launch、YAML 参数、端到端测试
 scripts/
 ├── install_dependencies.sh        # Ubuntu/Humble 检查与 rosdep 安装流程
 └── build_and_test.sh              # 与 CI 共用的构建、测试入口
 .github/workflows/ros2-humble.yml
 docs/
+├── delivery-plan.md               # 最终交付步骤、现场配合与验收要求
 ├── hardware.md                    # 用户提供的硬件规格与待确认接入信息
 ├── interfaces.md                  # 接口、状态与错误处理契约
 ├── integration-roadmap.md         # MoveIt 2、Gazebo、相机及硬件接入评估
@@ -96,6 +100,40 @@ Docker 镜像拉取需要 Docker Hub；rosdep 需要 `raw.githubusercontent.com`
 
 ## 编译与运行
 
+### 流水线模拟（当前主线）
+
+完成构建后在 Ubuntu/Humble 终端运行：
+
+```bash
+source /opt/ros/humble/setup.bash
+cd fruit_sorting_ws
+source install/setup.bash
+ros2 launch fruit_sorting_bringup conveyor_demo.launch.py
+```
+
+可在另一个已加载工作空间的终端观察：
+
+```bash
+ros2 topic echo /conveyor/cycle_results --qos-durability transient_local
+ros2 topic echo /conveyor/state --qos-durability transient_local
+```
+
+预期四个不同目标依次完成 `completed`，完整循环包括停止和恢复输送；演示只生成一批四件对象，全部完成后不再生成来料。
+模拟坐标、带速、间距和料框位置是软件夹具，不是现场配置；本演示没有真实图像识别、物理抓取或设备连接。
+源码中的队列服务会明确确认目标已接收，避免仅发布一次话题造成启动时漏接任务。
+
+故障验收示例（每次运行独立启动一个实例）：
+
+```bash
+ros2 launch fruit_sorting_bringup conveyor_demo.launch.py fail_stop:=true
+ros2 launch fruit_sorting_bringup conveyor_demo.launch.py hand_fail_command:=close
+ros2 launch fruit_sorting_bringup conveyor_demo.launch.py fail_start:=true
+```
+
+失败后协调器锁定，不会继续派发下一目标；抓取失败不自动恢复输送。错误清除和现场恢复尚需真实设备反馈与操作流程，当前 mock 演示可结束进程后重新启动。
+
+### 原固定场景演示
+
 分步编译（也可直接运行上述 `build_and_test.sh`）：
 
 ```bash
@@ -149,6 +187,7 @@ colcon test-result --verbose
 - 感知单元测试：检测 ID 唯一、数据有效、筛选样本完整。
 - 规划单元测试：类别映射、阈值边界、未知类、非法位姿/置信度/配置、模拟响应门控。
 - 离线 CAN 编码测试：原脚本报文的字节顺序、字段边界、非法输入拒绝；测试不打开总线、不发送帧。
+- 流水线测试：移动目标进入抓取区、停带后新鲜数据确认、四类分拣循环，以及停带/手部/恢复输送故障锁定。检查样本过期、未来时间戳和停带前旧帧不会被授权。
 - 启动集成测试：实际启动 Python 和 C++ 节点，验证 3 类目标、去重和命名空间隔离；验证请求顺序、服务拒绝、非模拟响应、服务不可用及响应超时；检查所有启动进程正常退出。
 
 GitHub Actions 在 `ubuntu-22.04` runner 上使用相同的固定 Ubuntu/Humble 镜像，运行相同安装、构建和测试脚本，并上传测试结果。

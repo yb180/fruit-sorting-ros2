@@ -1,0 +1,6 @@
+bool running
+---
+bool success
+bool simulated
+bool running
+string message

@@ -4,6 +4,9 @@
 目前仅实现软件模拟：不需要相机、机器人模型或设备驱动，不会连接真实硬件。
 模拟对象为苹果、番茄和黄瓜；检测、分类及位姿都是确定性测试数据，不代表真实识别或物理抓取能力。
 
+已确认现场硬件为 **AUBO K5 + 睿研智控 RY-H1 标准版（16 自由度）+ Intel RealSense L515**，用户已有基于 ROS 2 Humble 的静止抓取流程。
+设备规格、待确认配置和现有程序接入顺序见 [硬件清单](docs/hardware.md)。这些现场程序尚未导入本仓库。
+
 ## 项目结构与架构
 
 ```text
@@ -18,6 +21,7 @@ scripts/
 └── build_and_test.sh              # 与 CI 共用的构建、测试入口
 .github/workflows/ros2-humble.yml
 docs/
+├── hardware.md                    # 用户提供的硬件规格与待确认接入信息
 ├── interfaces.md                  # 接口、状态与错误处理契约
 ├── integration-roadmap.md         # MoveIt 2、Gazebo、相机及硬件接入评估
 └── validation.md                  # 当前实例的验证记录及限制

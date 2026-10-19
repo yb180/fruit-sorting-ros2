@@ -5,7 +5,8 @@
 模拟对象为苹果、番茄和黄瓜；检测、分类及位姿都是确定性测试数据，不代表真实识别或物理抓取能力。
 
 已确认现场硬件为 **AUBO K5 + 睿研智控 RY-H1 标准版（16 自由度）+ Intel RealSense L515**，用户已有基于 ROS 2 Humble 的静止抓取流程。
-设备规格、待确认配置和现有程序接入顺序见 [硬件清单](docs/hardware.md)。这些现场程序尚未导入本仓库。
+设备规格和接入顺序见 [硬件清单](docs/hardware.md)。已检查上传的静止抓取程序，现行入口为 `demo3_autograsp.py` 任务 1；[检查报告](docs/legacy-grasp-review.md)记录了复用边界和待修问题。
+本仓库已加入可离线测试的 CAN 报文编码模块；现场 SDK、模型和原抓取脚本尚未接入运行流程。
 
 ## 项目结构与架构
 
@@ -24,6 +25,8 @@ docs/
 ├── hardware.md                    # 用户提供的硬件规格与待确认接入信息
 ├── interfaces.md                  # 接口、状态与错误处理契约
 ├── integration-roadmap.md         # MoveIt 2、Gazebo、相机及硬件接入评估
+├── legacy-grasp-review.md         # 现有抓取程序检查与迁移问题
+├── legacy-source-inventory.json   # 上传文件指纹及静态依赖清单
 └── validation.md                  # 当前实例的验证记录及限制
 ```
 
@@ -145,6 +148,7 @@ colcon test-result --verbose
 
 - 感知单元测试：检测 ID 唯一、数据有效、筛选样本完整。
 - 规划单元测试：类别映射、阈值边界、未知类、非法位姿/置信度/配置、模拟响应门控。
+- 离线 CAN 编码测试：原脚本报文的字节顺序、字段边界、非法输入拒绝；测试不打开总线、不发送帧。
 - 启动集成测试：实际启动 Python 和 C++ 节点，验证 3 类目标、去重和命名空间隔离；验证请求顺序、服务拒绝、非模拟响应、服务不可用及响应超时；检查所有启动进程正常退出。
 
 GitHub Actions 在 `ubuntu-22.04` runner 上使用相同的固定 Ubuntu/Humble 镜像，运行相同安装、构建和测试脚本，并上传测试结果。

@@ -1,0 +1,214 @@
+{
+  "review_date": "2026-10-19",
+  "method": "Static source parsing and binary metadata only; no module imports, device connections, native-library loading or model deserialization.",
+  "files": [
+    {
+      "filename": "aubo_robot_linux.py",
+      "size_bytes": 8994,
+      "sha256": "680a1319eae2f04abb759c7b4a1dd9a27d9ce62d2a7cc08a76c562faa9ee98a8",
+      "python_3_10_grammar": "passed",
+      "line_count": 259,
+      "imports": [
+        "cv2",
+        "math",
+        "pyaubo_sdk",
+        "time"
+      ]
+    },
+    {
+      "filename": "demo3_autograsp.py",
+      "size_bytes": 56592,
+      "sha256": "192103ecca4b49559e1bc32f86cc0b7a50d9fa6c120c123151c983d1d9d96fdb",
+      "python_3_10_grammar": "passed",
+      "line_count": 1442,
+      "imports": [
+        "PCAN_ruiyan16_right",
+        "PCAN_ruiyan16_right_linux",
+        "asyncio",
+        "aubo_robot_linux",
+        "auboi5_ctrl",
+        "cv2",
+        "keyboard",
+        "msvcrt",
+        "numpy",
+        "open3d",
+        "os",
+        "platform",
+        "pyrealsense2",
+        "scipy.spatial.transform",
+        "select",
+        "socket",
+        "struct",
+        "sys",
+        "termios",
+        "time",
+        "tty",
+        "ultralytics",
+        "yaml"
+      ]
+    },
+    {
+      "filename": "Hand_eye_calibration_optimized.py",
+      "size_bytes": 11630,
+      "sha256": "a86987a2ac5069512748b7517dc8fbda66395aae156d9561f5d09ccd7260f235",
+      "python_3_10_grammar": "passed",
+      "line_count": 332,
+      "imports": [
+        "cv2",
+        "datetime",
+        "glob",
+        "json",
+        "numpy",
+        "os",
+        "transforms3d"
+      ]
+    },
+    {
+      "filename": "auboi5_ctrl.py",
+      "size_bytes": 87814,
+      "sha256": "a22097446953a170a34429f1abee56ea7ed1964dfeb2f693e1dd5ae3e103b519",
+      "python_3_10_grammar": "passed",
+      "line_count": 2291,
+      "imports": [
+        "libpyauboi5",
+        "logging",
+        "logging.handlers",
+        "math",
+        "os",
+        "time"
+      ]
+    },
+    {
+      "filename": "image_capture.py",
+      "size_bytes": 5528,
+      "sha256": "4e07400e3dd35ba9fe82b1c2b30dbcd5cbccded7a686c3cedc89456ca36e2bc1",
+      "python_3_10_grammar": "passed",
+      "line_count": 175,
+      "imports": [
+        "cv2",
+        "datetime",
+        "numpy",
+        "os",
+        "pyrealsense2",
+        "signal",
+        "threading",
+        "time"
+      ]
+    },
+    {
+      "filename": "libRyhand64_1.so",
+      "size_bytes": 44208,
+      "sha256": "5f0081d0de72cd46036ca0ac31d52a4a1dc7aed5cf2e85d29e272bfa85374def"
+    },
+    {
+      "filename": "p_ab_compute.py",
+      "size_bytes": 73658,
+      "sha256": "e5ee1902fd156662bb3deb15cb4549c06d9c2f98bb49d9939f38cb2a25caf0d4",
+      "python_3_10_grammar": "passed",
+      "line_count": 1780,
+      "imports": [
+        "asyncio",
+        "aubo_robot_linux",
+        "auboi5_ctrl",
+        "cv2",
+        "keyboard",
+        "msvcrt",
+        "numpy",
+        "open3d",
+        "os",
+        "platform",
+        "pyrealsense2",
+        "scipy.spatial.transform",
+        "select",
+        "socket",
+        "struct",
+        "sys",
+        "termios",
+        "time",
+        "tty",
+        "typing",
+        "ultralytics",
+        "yaml"
+      ]
+    },
+    {
+      "filename": "PCAN_ruiyan16_right.py",
+      "size_bytes": 12811,
+      "sha256": "a803fe0ddbd78929597fe0179f120d6e8990622cf3cdb746cc0f1b1492896d90",
+      "python_3_10_grammar": "passed",
+      "line_count": 245,
+      "imports": [
+        "PCANBasic",
+        "asyncio",
+        "time"
+      ]
+    },
+    {
+      "filename": "PCAN_ruiyan16_right_linux.py",
+      "size_bytes": 6889,
+      "sha256": "88d01b885ab8d312ba07103fd0ab218636dc481d16fb4c6bf701db0113f12396",
+      "python_3_10_grammar": "passed",
+      "line_count": 194,
+      "imports": [
+        "asyncio",
+        "can",
+        "os",
+        "time"
+      ]
+    },
+    {
+      "filename": "PCANBasic.py",
+      "size_bytes": 36913,
+      "sha256": "aeccfc25c20dad62ac4fbae405b9db4f3fe73d5725b91ceb1a6cabab457585ea",
+      "python_3_10_grammar": "passed",
+      "line_count": 745,
+      "imports": [
+        "ctypes",
+        "platform",
+        "string"
+      ]
+    },
+    {
+      "filename": "simple_hand_eye_data_collection.py",
+      "size_bytes": 7689,
+      "sha256": "acd7def5f489528ddefec359afcbab3140c76c2cb4e9b410996361e424ccb231",
+      "python_3_10_grammar": "passed",
+      "line_count": 204,
+      "imports": [
+        "cv2",
+        "datetime",
+        "math",
+        "numpy",
+        "os",
+        "pyaubo_sdk",
+        "pyrealsense2",
+        "time"
+      ]
+    },
+    {
+      "filename": "yolo_test.py",
+      "size_bytes": 9309,
+      "sha256": "f398a12de7f19e2b5e4ea91bd4250dd39a9c60c58340273e953f2ab930b54d97",
+      "python_3_10_grammar": "passed",
+      "line_count": 262,
+      "imports": [
+        "cv2",
+        "logging",
+        "logging.handlers",
+        "math",
+        "multiprocessing",
+        "numpy",
+        "open3d",
+        "os",
+        "pyrealsense2",
+        "time",
+        "ultralytics"
+      ]
+    },
+    {
+      "filename": "last1.pt",
+      "size_bytes": 5492051,
+      "sha256": "4fb80d78cae3e697743280bc510671d9d4570016ae33f8776cc1b02b32f18452"
+    }
+  ]
+}
